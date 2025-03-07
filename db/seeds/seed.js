@@ -26,11 +26,11 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
         })
         .then(() => {
             const converted = topicData.map((obj) => [obj.slug, obj.description, obj.img_url])
-            return db.query(format("INSERT INTO topics(slug, description, img_url) VALUES %L", converted))
+            return db.query(format("INSERT INTO topics(slug, description, img_url) VALUES %L RETURNING *;", converted))
         })
         .then(() => {
             const converted = userData.map((obj) => [obj.username, obj.name, obj.avatar_url])
-            return db.query(format("INSERT INTO users(username, name, avatar_url) VALUES %L", converted))
+            return db.query(format("INSERT INTO users(username, name, avatar_url) VALUES %L RETURNING *;", converted))
         })
         .then(() => {
             const fixedTime = articleData.map((obj) => {
@@ -39,9 +39,22 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
 
             const converted = fixedTime.map((obj) => [obj.title, obj.topic, obj.author, obj.body, obj.created_at, obj.votes, obj.article_img_url])
 
-            //return db.query(format("INSERT INTO articles(title, topic, author, body, created_at, votes, article_img_url) VALUES %L", converted))
+            return db.query(format("INSERT INTO articles(title, topic, author, body, created_at, votes, article_img_url) VALUES %L RETURNING *;", converted))
         })
-        .then(() => {});
+        .then(({rows}) => {
+            const scrapedArticleIds = {}
+            rows.forEach((art) => {
+                scrapedArticleIds[art.title] = art.article_id
+            })
+
+            const fixedTime = commentData.map((obj) => {
+                return convertTimestampToDate(obj)
+            })
+
+            const converted = fixedTime.map((obj) => [scrapedArticleIds[obj.article_title], obj.body, obj.votes, obj.author, obj.created_at])
+
+            return db.query(format("INSERT INTO comments(article_id, body, votes, author, created_at) VALUES %L RETURNING *;", converted))
+        });
 };
 
 module.exports = seed;
