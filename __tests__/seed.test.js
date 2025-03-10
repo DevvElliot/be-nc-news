@@ -65,9 +65,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type, character_maximum_length
-                      FROM information_schema.columns
-                      WHERE table_name = 'topics'
-                      AND column_name = 'img_url';`
+                    FROM information_schema.columns
+                    WHERE table_name = 'topics'
+                    AND column_name = 'img_url';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("img_url");
@@ -81,11 +81,11 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT EXISTS (
-                      SELECT FROM 
-                          information_schema.tables 
-                      WHERE 
-                          table_name = 'users'
-                      );`
+                    SELECT FROM 
+                        information_schema.tables 
+                    WHERE 
+                        table_name = 'users'
+                    );`
                 )
                 .then(({ rows: [{ exists }] }) => {
                     expect(exists).toBe(true);
@@ -95,9 +95,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type, column_default
-                      FROM information_schema.columns
-                      WHERE table_name = 'users'
-                      AND column_name = 'username';`
+                    FROM information_schema.columns
+                    WHERE table_name = 'users'
+                    AND column_name = 'username';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("username");
@@ -151,11 +151,11 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT EXISTS (
-                      SELECT FROM 
-                          information_schema.tables 
-                      WHERE 
-                          table_name = 'articles'
-                      );`
+                    SELECT FROM 
+                        information_schema.tables 
+                    WHERE 
+                        table_name = 'articles'
+                    );`
                 )
                 .then(({ rows: [{ exists }] }) => {
                     expect(exists).toBe(true);
@@ -165,9 +165,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type, column_default
-                      FROM information_schema.columns
-                      WHERE table_name = 'articles'
-                      AND column_name = 'article_id';`
+                    FROM information_schema.columns
+                    WHERE table_name = 'articles'
+                    AND column_name = 'article_id';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("article_id");
@@ -208,9 +208,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type
-                          FROM information_schema.columns
-                          WHERE table_name = 'articles'
-                          AND column_name = 'topic';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'articles'
+                        AND column_name = 'topic';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("topic");
@@ -221,9 +221,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type
-                          FROM information_schema.columns
-                          WHERE table_name = 'articles'
-                          AND column_name = 'author';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'articles'
+                        AND column_name = 'author';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("author");
@@ -234,9 +234,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type, character_maximum_length
-                          FROM information_schema.columns
-                          WHERE table_name = 'articles'
-                          AND column_name = 'body';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'articles'
+                        AND column_name = 'body';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("body");
@@ -247,9 +247,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type
-                          FROM information_schema.columns
-                          WHERE table_name = 'articles'
-                          AND column_name = 'created_at';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'articles'
+                        AND column_name = 'created_at';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("created_at");
@@ -262,9 +262,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type
-                          FROM information_schema.columns
-                          WHERE table_name = 'articles'
-                          AND column_name = 'votes';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'articles'
+                        AND column_name = 'votes';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("votes");
@@ -275,9 +275,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type, character_maximum_length
-                          FROM information_schema.columns
-                          WHERE table_name = 'articles'
-                          AND column_name = 'article_img_url';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'articles'
+                        AND column_name = 'article_img_url';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("article_img_url");
@@ -292,11 +292,11 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT EXISTS (
-                      SELECT FROM 
-                          information_schema.tables 
-                      WHERE 
-                          table_name = 'comments'
-                      );`
+                    SELECT FROM 
+                        information_schema.tables 
+                    WHERE 
+                        table_name = 'comments'
+                    );`
                 )
                 .then(({ rows: [{ exists }] }) => {
                     expect(exists).toBe(true);
@@ -306,9 +306,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type, column_default
-                      FROM information_schema.columns
-                      WHERE table_name = 'comments'
-                      AND column_name = 'comment_id';`
+                    FROM information_schema.columns
+                    WHERE table_name = 'comments'
+                    AND column_name = 'comment_id';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("comment_id");
@@ -349,9 +349,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type
-                          FROM information_schema.columns
-                          WHERE table_name = 'comments'
-                          AND column_name = 'article_id';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'comments'
+                        AND column_name = 'article_id';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("article_id");
@@ -362,9 +362,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type
-                          FROM information_schema.columns
-                          WHERE table_name = 'comments'
-                          AND column_name = 'author';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'comments'
+                        AND column_name = 'author';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("author");
@@ -375,9 +375,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type
-                          FROM information_schema.columns
-                          WHERE table_name = 'comments'
-                          AND column_name = 'votes';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'comments'
+                        AND column_name = 'votes';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("votes");
@@ -388,9 +388,9 @@ describe("seed", () => {
             return db
                 .query(
                     `SELECT column_name, data_type
-                          FROM information_schema.columns
-                          WHERE table_name = 'comments'
-                          AND column_name = 'created_at';`
+                        FROM information_schema.columns
+                        WHERE table_name = 'comments'
+                        AND column_name = 'created_at';`
                 )
                 .then(({ rows: [column] }) => {
                     expect(column.column_name).toBe("created_at");
@@ -508,8 +508,8 @@ describe("tests to check common errors", () => {
         return db
             .query(
                 `SELECT constraint_name, constraint_type
-          FROM information_schema.table_constraints
-          WHERE table_name = 'articles';`
+            FROM information_schema.table_constraints
+            WHERE table_name = 'articles';`
             )
             .then(({ rows }) => {
                 const foreignKeyRows = rows.filter((row) => {
@@ -527,8 +527,8 @@ describe("tests to check common errors", () => {
         return db
             .query(
                 `SELECT constraint_name, constraint_type
-          FROM information_schema.table_constraints
-          WHERE table_name = 'comments';`
+            FROM information_schema.table_constraints
+            WHERE table_name = 'comments';`
             )
             .then(({ rows }) => {
                 const foreignKeyRows = rows.filter((row) => {
