@@ -7,7 +7,7 @@ const app = require("../app");
 /* Set up your test imports here */
 
 /* Set up your beforeEach & afterAll functions here */
-beforeEach(() => seed(data));
+beforeAll(() => seed(data));
 
 afterAll(() => db.end());
 
@@ -27,9 +27,9 @@ describe("GET /api/topics", () => {
         return request(app)
             .get("/api/topics")
             .expect(200)
-            .then(({ body }) => {
-                expect(body.topics.length).toBe(3);
-                body.topics.forEach((topic) => {
+            .then(({ body: {topics} }) => {
+                expect(topics.length).toBe(3);
+                topics.forEach((topic) => {
                     expect(typeof topic.slug).toBe("string");
                     expect(typeof topic.description).toBe("string");
                 });
