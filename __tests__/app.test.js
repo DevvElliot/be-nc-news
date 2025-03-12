@@ -62,7 +62,6 @@ describe("GET /api/articles", () => {
 describe("GET /api/articles/:article_id", () => {
     test("200: responds with the correct article of article id", () => {
         return request(app)
-        // todo: add a test for invalid article id
             .get("/api/articles/5")
             .expect(200)
             .then(({ body: {article} }) => {
@@ -77,6 +76,15 @@ describe("GET /api/articles/:article_id", () => {
                     expect(article.article_img_url).toBe("https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700")
                     
                 });
+            });
+    });
+
+    test("404: responds with an object saying 404 not found", () => {
+        return request(app)
+            .get("/api/articles/999")
+            .expect(404)
+            .then(({ body: {msg} }) => {
+                expect(msg).toBe("Not found (articleId does not exist)")
             });
     });
 });
