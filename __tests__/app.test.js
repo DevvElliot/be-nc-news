@@ -43,6 +43,7 @@ describe("GET /api/articles", () => {
             .get("/api/articles")
             .expect(200)
             .then(({ body: {articles} }) => {
+                console.log(articles)
                 expect(articles.length).toBe(13);
                 articles.forEach((article) => {
                     expect(typeof article.article_id).toBe("number")

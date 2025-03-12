@@ -1,7 +1,10 @@
 const db = require("../db/connection")
 
 exports.fetchArticles = () => {
-    return db.query("SELECT * FROM articles").then(({rows}) => {
+    // not entirely sure how joining works, will need a recap
+    // was thinking of just comparing tables but that's not really using queries which is what the task wants
+    // todo: get comments sorted (I feel like I'm behind)
+    return db.query("SELECT *, COUNT(comments.article_title) as comment_count FROM articles JOIN comments ON articles.title = comments.article_title GROUP BY comments.article_title, articles.title").then(({rows}) => {
         return rows
     })
 }
