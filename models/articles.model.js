@@ -26,3 +26,13 @@ exports.fetchArticleById = (articleId) => {
             return rows;
         });
 };
+
+exports.fetchCommentsByArticleId = (articleId) => {
+    return db
+        .query("SELECT * FROM comments WHERE article_id = $1", [articleId])
+        .then(({ rows }) => {
+
+            if (rows.length === 0) return Promise.reject();
+            return rows;
+        });
+};

@@ -43,7 +43,6 @@ describe("GET /api/articles", () => {
             .get("/api/articles")
             .expect(200)
             .then(({ body: {articles} }) => {
-                console.log(articles)
                 expect(articles.length).toBe(13);
                 articles.forEach((article) => {
                     expect(typeof article.article_id).toBe("number")
@@ -87,6 +86,34 @@ describe("GET /api/articles/:article_id", () => {
             .expect(404)
             .then(({ body: {msg} }) => {
                 expect(msg).toBe("Not found (articleId does not exist)")
+            });
+    });
+});
+
+describe("GET /api/articles/:article_id/comments", () => {
+    test("200: responds with all the comments of the article id", () => {
+        return request(app)
+            .get("/api/articles/1/comments")
+            .expect(200)
+            .then(({ body: {comments} }) => {
+                expect(comments.length).toBe(11)
+                comments.forEach((comment) => {
+                    expect(typeof comment.comment_id).toBe("number")
+                    expect(typeof comment.article_id).toBe("number")
+                    expect(typeof comment.body).toBe("string")
+                    expect(typeof comment.votes).toBe("number")
+                    expect(typeof comment.author).toBe("string")
+                    expect(typeof comment.created_at).toBe("string")
+                })
+            });
+    });
+
+    test("404: responds with an object saying 404 not found", () => {
+        return request(app)
+            .get("/api/articles/2/comments")
+            .expect(404)
+            .then(({ body: {msg} }) => {
+                expect(msg).toBe("Not found (articleId has no comments)")
             });
     });
 });
