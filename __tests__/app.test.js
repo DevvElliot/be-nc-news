@@ -107,13 +107,32 @@ describe("GET /api/articles/:article_id/comments", () => {
                 })
             });
     });
+});
 
-    test("404: responds with an object saying 404 not found", () => {
+
+describe("POST /api/articles/:article_id/comments", () => {
+    test("201: posts comment in article id", () => {
         return request(app)
-            .get("/api/articles/2/comments")
-            .expect(404)
-            .then(({ body: {msg} }) => {
-                expect(msg).toBe("Not found (articleId has no comments)")
+            .post("/api/articles/1/comments")
+            .send({username: "butter_bridge", body: "hello"})
+            .expect(201)
+            .then(( {body: {comment} }) => {
+                expect(comment.comment_id).toBe(19);
+                expect(comment.article_id).toBe(1);
+                expect(comment.body).toBe("hello");
+                expect(comment.author).toBe("butter_bridge");
+                expect(comment.votes).toBe(0);
+                expect(typeof comment.created_at).toBe("string")
+            });
+    });
+
+    test("400: article id isnt a number", () => {
+        return request(app)
+            .post("/api/articles/banana/comments")
+            .send({username: "butter_bridge", body: "hello"})
+            .expect(400)
+            .then(( {msg }) => {
+                expect(msg).toBe("Bad request")
             });
     });
 });

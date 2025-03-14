@@ -1,4 +1,4 @@
-const {fetchArticles, fetchArticleById, fetchCommentsByArticleId} = require("../models/articles.model")
+const {fetchArticles, fetchArticleById, fetchCommentsByArticleId, handleCommentByArticleId} = require("../models/articles.model")
 
 exports.getArticles = (req, res) => {
     fetchArticles().then((articles) => {
@@ -21,7 +21,15 @@ exports.getCommentsByArticleId = (req, res, next) => {
     fetchCommentsByArticleId(article_id).then((comments) => {
         res.status(200).send({comments: comments})
     })
+}
+
+exports.postCommentByArticleId = (req, res, next) => {
+    const {article_id} = req.params
+    const {username, body} = req.body
+    handleCommentByArticleId(article_id, body, username).then((comment) => {
+        res.status(201).send({comment: comment})
+    })
     .catch((err) => {
-        res.status(404).send({msg: "Not found (articleId has no comments)"})
+        res.status(400).send({msg: "Bad request"})
     })
 }
