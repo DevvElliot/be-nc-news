@@ -1,4 +1,5 @@
 const db = require("../db/connection");
+const format = require("pg-format")
 
 exports.fetchArticles = () => {
     // not entirely sure how joining works, will need a recap
@@ -31,8 +32,16 @@ exports.fetchCommentsByArticleId = (articleId) => {
     return db
         .query("SELECT * FROM comments WHERE article_id = $1", [articleId])
         .then(({ rows }) => {
-
-            if (rows.length === 0) return Promise.reject();
             return rows;
         });
 };
+
+exports.handleCommentByArticleId = (articleId, body, username) => {
+    return db.query("INSERT INTO comments(article_id, body, author) VALUES ($1, $2, $3) RETURNING *", [articleId, body, username])
+    .then(({rows}) => {
+        return rows[0]
+    })
+    .catch((err) => {
+        Promise.reject(({msg: "Bad request"}))
+    })
+}
